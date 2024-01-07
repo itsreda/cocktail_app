@@ -3,6 +3,7 @@ package fr.enseirb.cocktailapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import fr.enseirb.cocktailapp.databinding.ActivityMainBinding
@@ -20,7 +21,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        replaceFragment(SearchFragment())
+        val button = findViewById<ImageButton>(R.id.button)
+
+        button.setOnClickListener {
+
+            replaceFragment(SearchFragment())
+        }
+      
         replaceFragment(SearchFragment())
 
 
