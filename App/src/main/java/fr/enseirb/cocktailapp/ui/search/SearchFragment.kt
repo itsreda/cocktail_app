@@ -1,60 +1,87 @@
 package fr.enseirb.cocktailapp.ui.search
-
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import fr.enseirb.cocktailapp.R
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
+import java.net.URL
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SearchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var listView: RecyclerView
+    private lateinit var searchView: SearchView
+    private lateinit var adapter: CocktailAdapter
+    private val client = OkHttpClient()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        listView = view.findViewById(R.id.recycler_view)
+        searchView = view.findViewById(R.id.searchView)
+
+        listView.layoutManager = LinearLayoutManager(activity)
+
+        adapter = CocktailAdapter(CocktailData(emptyList()), activity)
+        listView.adapter = adapter
+
+        setAdapter()
+        setupSearchView()
     }
+
+    private fun setAdapter() {
+        val url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail")
+        val request = Request.Builder().url(url).build()
+        client
+            .newCall(request)
+            .enqueue(object: Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.i("OKHTTP", "OnFailure: ${e.localizedMessage}")
+                }
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body?.string()
+                    val cocktailData = Gson().fromJson(responseBody, CocktailData::class.java)
+                    adapter.updateCocktailList(cocktailData)
+
+
+                }
+            })
+    }
+
+    private fun setupSearchView() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                adapter.updateData(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.updateData(newText)
+
+                return true
+            }
+        })
+    }
+
 }

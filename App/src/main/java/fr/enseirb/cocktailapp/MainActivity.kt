@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        replaceFragment(SearchFragment())
-        replaceFragment(IngredientsFragment())
+        replaceFragment(SearchFragment())
 
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
