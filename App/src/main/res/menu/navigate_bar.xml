@@ -14,7 +14,4 @@
     <item android:title="Categories"
         android:id="@+id/Categories"
         android:icon="@drawable/baseline_apps_24" />
-    <item android:title="Favorites"
-        android:id="@+id/Favorites"
-        android:icon="@drawable/baseline_favorite_24"/>
 </menu>

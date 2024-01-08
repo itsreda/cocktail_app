@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:card_view="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="70dp" android:layout_marginTop="12dp" android:layout_marginLeft="8dp" android:layout_marginRight="8dp" android:id="@+id/cocktail_card" card_view:cardBackgroundColor="#FFFF" card_view:cardCornerRadius="8dp" card_view:contentPadding="10dp" android:foreground="?selectableItemBackground" android:clickable="true">
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
-        <ImageView android:id="@+id/imageId" android:layout_width="50dp" android:layout_height="50dp" android:background="@android:color/transparent" android:src="@drawable/other_unknown" android:scaleType="centerCrop" android:contentDescription="@null"/>
-        <TextView android:id="@+id/textView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:text="Item" android:layout_gravity="center" android:textSize="20sp" android:textStyle="bold"/>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:id="@+id/cocktail_card"
+    card_view:cardBackgroundColor="#FFFF"
+    card_view:cardCornerRadius="8dp"
+    card_view:contentPadding="10dp"
+    android:foreground="?selectableItemBackground"
+    android:clickable="true">
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView android:id="@+id/imageId"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/other_unknown"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Item"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

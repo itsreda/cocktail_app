@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="15dp"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Popular Drinks"
+                android:textColor="@color/olive"
+                android:textSize="28sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+            <include layout="@layout/category_item"
+                android:id="@+id/drink1"
+                android:layout_marginVertical="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="72dp" />
+            <include layout="@layout/category_item"
+                android:id="@+id/drink2"
+                android:layout_marginVertical="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="72dp" />
+            <include layout="@layout/category_item"
+                android:id="@+id/drink3"
+                android:layout_marginVertical="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="72dp" />
+
+            <View
+                android:id="@+id/horizontal_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Popular Ingredients"
+                android:textColor="@color/olive"
+                android:textSize="28sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+            <include layout="@layout/category_item"
+                android:id="@+id/ingredient1"
+                android:layout_marginVertical="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="72dp" />
+            <include layout="@layout/category_item"
+                android:id="@+id/ingredient2"
+                android:layout_marginVertical="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="72dp" />
+            <include layout="@layout/category_item"
+                android:id="@+id/ingredient3"
+                android:layout_marginVertical="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="72dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
