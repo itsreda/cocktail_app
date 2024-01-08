@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cocktailName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cocktail name"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/cocktailImg"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/cocktail"
+                android:background="@drawable/rounded_corners"
+                />
+                <TextView
+                    android:id="@+id/drink_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginHorizontal="75dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/textview_border"
+                    android:padding="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredients: "
+                android:textColor="@color/olive"
+                android:textSize="22sp"
+                android:layout_marginVertical="8dp"
+                android:textStyle="italic|bold"
+                android:layout_marginStart="18sp"/>
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="12dp">
+
+                    <TextView
+                        android:id="@+id/ingredientId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="ingredient 1"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/instructions"
+                android:textSize="22sp"
+                android:textColor="@color/olive"
+                android:layout_marginVertical="8dp"
+                android:textStyle="italic|bold"
+                android:layout_marginStart="18dp"/>
+
+            <TextView
+                android:id="@+id/instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:text="Place sugar cube in old fashioned glass and saturate with bitters, add a dash of plain water.\n\nMuddle until dissolved.\n\nFill the glass with ice cubes and add whiskey.\n\nGarnish with orange twist, and a cocktail cherry."
+            android:textSize="18sp"
+            android:textColor="@color/blue"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="18dp"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginEnd="18dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Glass"
+                android:textSize="22sp"
+                android:textColor="@color/olive"
+                android:layout_marginVertical="8dp"
+                android:textStyle="italic|bold"
+                android:layout_marginStart="18dp"/>
+            <TextView
+                android:id="@+id/glass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serve: Cocktail glass"
+                android:textSize="18sp"
+                android:layout_marginVertical="8dp"
+                android:layout_marginStart="18sp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

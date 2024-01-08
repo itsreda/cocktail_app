@@ -33,6 +33,11 @@ class CocktailAdapter(private var cocktailList: CocktailData, private val activi
         return cocktailList.size()
     }
 
+    override fun getItemId(position: Int): Long {
+        return cocktailList[position].idDrink
+    }
+
+
     override fun onBindViewHolder(holder: CocktailViewHolder, position: Int) {
         var cocktail = cocktailList[position]
 

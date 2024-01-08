@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import fr.enseirb.cocktailapp.R
+import fr.enseirb.cocktailapp.ui.search.CocktailAdapter
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -20,17 +21,21 @@ import java.io.IOException
 import java.net.URL
 
 class IngredientsAdapter(private var IngredientsList: IngredientsData, private val activity: FragmentActivity?) : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
-
+    private lateinit var mListener: CocktailAdapter.OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_view_design, parent, false)
 
-        return IngredientsViewHolder(view)
+        return IngredientsViewHolder(view, mListener)
     }
 
     override fun getItemCount(): Int {
         return IngredientsList.size()
+    }
+
+    fun getItemName(position: Int): String{
+        return IngredientsList[position].strIngredient1
     }
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
@@ -77,9 +82,22 @@ class IngredientsAdapter(private var IngredientsList: IngredientsData, private v
         }
     }
 
-    class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class IngredientsViewHolder(itemView: View, listener: CocktailAdapter.OnItemClickListener) : RecyclerView.ViewHolder(itemView){
         val textView : TextView = itemView.findViewById(R.id.textView)
         val imageView : ImageView = itemView.findViewById(R.id.imageId)
+        init {
+
+            itemView.setOnClickListener{
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
 
+    interface OnItemClickListener : CocktailAdapter.OnItemClickListener {
+        override fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClicklistener(listener: OnItemClickListener){
+        mListener = listener
+    }
 }

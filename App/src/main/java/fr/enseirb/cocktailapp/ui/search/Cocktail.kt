@@ -11,6 +11,7 @@ data class CocktailData(val drinks: List<Cocktail>) {
 }
 
 data class Cocktail(
+    val idDrink: Long,
     val strDrink: String,
     val strDrinkThumb: String,
     val strInstructions: String
