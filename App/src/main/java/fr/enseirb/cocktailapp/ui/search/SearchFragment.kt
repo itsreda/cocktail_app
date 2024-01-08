@@ -45,6 +45,16 @@ class SearchFragment : Fragment() {
         adapter = CocktailAdapter(CocktailData(emptyList()), activity)
         listView.adapter = adapter
 
+        adapter.setOnItemClicklistener(object :CocktailAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+
+                activity?.let {
+                    Toast.makeText(it, "You clicked on item $position", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
+
         setAdapter()
         setupSearchView()
     }

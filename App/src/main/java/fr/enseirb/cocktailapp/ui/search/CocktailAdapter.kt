@@ -1,5 +1,4 @@
 package fr.enseirb.cocktailapp.ui.search
-import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +19,14 @@ import java.io.IOException
 import java.net.URL
 class CocktailAdapter(private var cocktailList: CocktailData, private val activity: FragmentActivity?) : RecyclerView.Adapter<CocktailAdapter.CocktailViewHolder>() {
     private val client = OkHttpClient()
+    private lateinit var mListener:OnItemClickListener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_view_design, parent, false)
 
-        return CocktailViewHolder(view)
+        return CocktailViewHolder(view, mListener)
     }
 
     override fun getItemCount(): Int {
@@ -75,9 +75,24 @@ class CocktailAdapter(private var cocktailList: CocktailData, private val activi
         }
     }
 
-    class CocktailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class CocktailViewHolder(itemView: View, listener: OnItemClickListener) : RecyclerView.ViewHolder(itemView){
         val textView : TextView = itemView.findViewById(R.id.textView)
         val imageView : ImageView = itemView.findViewById(R.id.imageId)
+
+        init {
+
+            itemView.setOnClickListener{
+                listener.onItemClick(adapterPosition)
+            }
+        }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClicklistener(listener: OnItemClickListener){
+        mListener = listener
     }
 
 }
