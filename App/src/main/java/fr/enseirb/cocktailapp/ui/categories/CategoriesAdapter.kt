@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import fr.enseirb.cocktailapp.R
+import fr.enseirb.cocktailapp.ui.search.CocktailAdapter
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -19,13 +20,14 @@ import java.io.IOException
 import java.net.URL
 
 class CategoriesAdapter (private var categoriesList: CategoriesData, private val activity: FragmentActivity?) : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
+    private lateinit var mListener: CategoriesAdapter.OnItemClickListener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_view_design, parent, false)
 
-        return CategoriesViewHolder(view)
+        return CategoriesViewHolder(view, mListener)
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +40,8 @@ class CategoriesAdapter (private var categoriesList: CategoriesData, private val
         holder.textView.text = category.strCategory
 
         val imageName = getDrawableNameFromText(category.strCategory)
-        val imageResourceId = activity?.resources?.getIdentifier(imageName, "drawable", activity.packageName)
+        val imageResourceId =
+            activity?.resources?.getIdentifier(imageName, "drawable", activity.packageName)
 
         if (imageResourceId != null && imageResourceId != 0) {
             holder.imageView.setImageResource(imageResourceId)
@@ -52,6 +55,7 @@ class CategoriesAdapter (private var categoriesList: CategoriesData, private val
 
         return text.toLowerCase().replace(" / ", "_").replace(" ", "_")
     }
+
     fun updateData(newText: String?, client: OkHttpClient) {
         Log.i("UpdateData", "Func called")
 
@@ -59,7 +63,7 @@ class CategoriesAdapter (private var categoriesList: CategoriesData, private val
         val request = Request.Builder().url(url).build()
         client
             .newCall(request)
-            .enqueue(object: Callback {
+            .enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     Log.i("OKHTTP", "OnFailure: ${e.localizedMessage}")
                 }
@@ -70,25 +74,46 @@ class CategoriesAdapter (private var categoriesList: CategoriesData, private val
                     val responseBody = response.body?.string()
                     val cocktailData = Gson().fromJson(responseBody, CategoriesData::class.java)
                     categoriesList = cocktailData
-                    activity?.runOnUiThread{
+                    activity?.runOnUiThread {
                         notifyDataSetChanged()
                     }
                 }
             })
     }
 
-    fun updateCategoriesList(categoriesData: CategoriesData?){
-        if(categoriesData != null){
+    fun updateCategoriesList(categoriesData: CategoriesData?) {
+        if (categoriesData != null) {
             categoriesList = categoriesData
-            activity?.runOnUiThread{
+            activity?.runOnUiThread {
                 notifyDataSetChanged()
             }
         }
     }
 
-    class CategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class CategoriesViewHolder(itemView: View, listener: CocktailAdapter.OnItemClickListener) : RecyclerView.ViewHolder(itemView){
         val textView : TextView = itemView.findViewById(R.id.textView)
         val imageView : ImageView = itemView.findViewById(R.id.imageId)
+
+        init {
+
+            itemView.setOnClickListener{
+                listener.onItemClick(adapterPosition)
+            }
+        }
+
+    }
+
+    interface OnItemClickListener : CocktailAdapter.OnItemClickListener {
+        override fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClicklistener(listener: OnItemClickListener){
+        mListener = listener
+    }
+
+    fun getItemName(position: Int): String {
+        return categoriesList[position].strCategory
+
     }
 
 }

@@ -35,6 +35,11 @@
         android:name=".ui.IngredientActivity"
         android:exported="false"
         android:label="IngredientActivity" />
+
+        <activity
+            android:name=".ui.CocktailActivity"
+            android:exported="false"
+            android:label="CocktailActivity" />
 </application>
 
 </manifest>

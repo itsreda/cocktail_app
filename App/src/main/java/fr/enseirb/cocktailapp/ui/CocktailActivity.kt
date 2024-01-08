@@ -1,11 +1,13 @@
 package fr.enseirb.cocktailapp.ui
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import fr.enseirb.cocktailapp.R
 import fr.enseirb.cocktailapp.ui.search.CocktailData
 import okhttp3.Call
@@ -16,7 +18,7 @@ import okhttp3.Response
 import java.io.IOException
 import java.net.URL
 
-class IngredientActivity: AppCompatActivity() {
+class CocktailActivity : AppCompatActivity() {
     private lateinit var cocktailName: TextView
     private val client = OkHttpClient()
 
@@ -28,14 +30,14 @@ class IngredientActivity: AppCompatActivity() {
 
 
         val bundle : Bundle? = intent.extras
-        val ingredient = bundle!!.getString("ingredientName")
+        val category = bundle!!.getString("categoryName")
 
-        setView(ingredient)
+        setView(category)
     }
 
 
     fun setView(id: String?) {
-        val url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=$id")
+        val url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=$id")
         val request = Request.Builder().url(url).build()
         client
             .newCall(request)
@@ -51,7 +53,7 @@ class IngredientActivity: AppCompatActivity() {
                     val recipeData = Gson().fromJson(responseBody, CocktailData::class.java)
                     var str = ""
                     runOnUiThread {
-                        for(i in 0 until recipeData?.size()!!){
+                        for(i in 0 until recipeData.size()){
                             str = str + "${recipeData[i].strDrink}\n"
                         }
 
